@@ -1,28 +1,20 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        #stacks have stack.append(x) this pushes x
-        #stack.pop() 
-        #stack[-1] is a peak
-
         stack = []
-
         brackDict = {
             "}" : "{",
-            ")" : "(",
-            "]" : "["
+            "]" : "[",
+            ")" : "("
         }
 
-        openSet = set(["{", "(", "["])
+        brackSet = set(["(", "[", "{"])
 
         for c in s:
-            if c in openSet:
+            if c in brackSet:
                 stack.append(c)
             elif c in brackDict:
-                if not stack or stack[-1] != brackDict[c]:
-                    return False #wrong bracket ordering
-                #we have matching brackets! pop
+                if len(stack) == 0 or stack[-1] != brackDict[c]:
+                    return False
+                #if we are here it matches pop it and move on
                 stack.pop()
-        
         return len(stack) == 0
-
-                
